@@ -24,6 +24,7 @@ public class MyListAdapter extends BaseAdapter {
     private Context context;
     private JSONArray jsonArray;
     private JSONObject jsonObject;
+    private JSONArray tags;
 
     private TextView tvHeadline, tvEditor, tvDate, tvSection;
 
@@ -77,22 +78,32 @@ public class MyListAdapter extends BaseAdapter {
             tvSection = rootView.findViewById(R.id.tv_section);
 
             String headline;
-            String editor;
+            String editor = "";
 
             final JSONObject jsonObject = jsonArray.getJSONObject(position);
 
+            // extract the headline if exists
             if (jsonObject.has(ServerConstants.JSON_WEB_TITLE)) {
                 headline = jsonObject.getString(ServerConstants.JSON_WEB_TITLE);
-
-                if (headline.contains("|")) {
-                    editor = headline.substring(headline.indexOf("|") + 2, headline.length());
-                    headline = headline.substring(0, headline.indexOf("|"));
-                    tvEditor.setText(editor);
-                }
-
                 tvHeadline.setText(headline);
             }
 
+            // extract author name if exists
+            if (jsonObject.has(ServerConstants.JSON_TAGS)) {
+                tags = jsonObject.getJSONArray(ServerConstants.JSON_TAGS);
+
+                for (int i = 0; i < tags.length(); i++) {
+                    JSONObject obj = tags.getJSONObject(i);
+
+                    if (obj.has(ServerConstants.JSON_WEB_TITLE)) {
+                        editor += obj.getString(ServerConstants.JSON_WEB_TITLE) + " ";
+                    }
+                }
+
+                tvEditor.setText(editor);
+            }
+
+            // extract date published if exists
             if (jsonObject.has(ServerConstants.JSON_WEB_DATE)) {
                 tvDate.setText(jsonObject.getString(ServerConstants.JSON_WEB_DATE));
             }

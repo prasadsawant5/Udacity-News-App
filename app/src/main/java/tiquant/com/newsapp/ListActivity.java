@@ -128,7 +128,7 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
             int responseCode;
 
             try {
-                url = new URL(ServerConstants.SERVER_URL + "search");
+                url = new URL(ServerConstants.SERVER_URL + "search?show-tags=contributor");
                 httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.addRequestProperty("api-key", ServerConstants.API_KEY);

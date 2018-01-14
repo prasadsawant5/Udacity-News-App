@@ -15,4 +15,5 @@ public class ServerConstants {
     public static final String JSON_WEB_DATE = "webPublicationDate";
     public static final String JSON_WEB_URL = "webUrl";
     public static final String JSON_RESULTS = "results";
+    public static final String JSON_TAGS = "tags";
 }
