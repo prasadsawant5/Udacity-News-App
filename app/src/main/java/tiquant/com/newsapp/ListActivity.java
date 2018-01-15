@@ -3,6 +3,7 @@ package tiquant.com.newsapp;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -82,6 +85,26 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent preferenceIntent = new Intent(getApplicationContext(), PreferenceActivity.class);
+            startActivity(preferenceIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * @description checks if Internet is ON or not
